@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ripasso Passivi</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f5f7fa;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            background: #f8f9fa;
+            border: none;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            min-width: 180px;
+        }
+
+        .tab:first-child {
+            border-radius: 10px 0 0 0;
+        }
+
+        .tab:last-child {
+            border-radius: 0 10px 0 0;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab:hover:not(.active) {
+            background: #e9ecef;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 500px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .exercise {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            background-color: #f8f9ff;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .exercise h3 {
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .question {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .question-text {
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .show-answer-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .show-answer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .answer {
+            margin-top: 10px;
+            padding: 10px;
+            background: #e6fffa;
+            border: 1px solid #4fd1c7;
+            border-radius: 5px;
+            display: none;
+            color: #234e52;
+            font-weight: 500;
+        }
+
+        .answer.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .incorrect {
+            text-decoration: line-through;
+            color: #e53e3e;
+            font-weight: bold;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Ripasso Passivi</h1>
+        <p>Dipartimento Inglese - IIS MENDEL</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" onclick="openTab(event, 'passives-all')">PASSIVES ALL</button>
+        <button class="tab" onclick="openTab(event, 'have-something-done')">HAVE SOMETHING DONE</button>
+        <button class="tab" onclick="openTab(event, 'doppio-passivo')">DOPPIO PASSIVO</button>
+        <button class="tab" onclick="openTab(event, 'passivi-impersonali')">PASSIVI IMPERSONALI</button>
+        <button class="tab" onclick="openTab(event, 'passive-to-active')">PASSIVE TO ACTIVE</button>
+    </div>
+
+    <!-- TAB 1: PASSIVES ALL -->
+    <div id="passives-all" class="tab-content active">
+        <div class="exercise">
+            <h3>Exercise 1: Underline the verb forms which are NOT possible</h3>
+            
+            <div class="question">
+                <div class="question-text">1. My car has being stolen.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><span class="incorrect">has being</span> → Correct: <strong>has been</strong> stolen</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. Jack was borned on a Thursday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><span class="incorrect">was borned</span> → Correct: <strong>was born</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. Then I realized that none of the guests had been sent an invitation.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">✓ <strong>Correct</strong> - Past Perfect Passive</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. Mary's car is being serviced today.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">✓ <strong>Correct</strong> - Present Continuous Passive</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. Your order will been sent as soon as possible.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><span class="incorrect">will been</span> → Correct: <strong>will be</strong> sent</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. The hole in the road was being repaired when I came home.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">✓ <strong>Correct</strong> - Past Continuous Passive</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. This swimming pool is used by over a thousand people each week.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">✓ <strong>Correct</strong> - Present Simple Passive</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. When was this church built?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">✓ <strong>Correct</strong> - Past Simple Passive question</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">9. An address is writing on the back of the envelope.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><span class="incorrect">is writing</span> → Correct: <strong>is written</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">10. Customers are request to ask for a receipt.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><span class="incorrect">are request</span> → Correct: <strong>are requested</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 2: Underline the best verb form to complete each sentence</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Their new house <span class="underline">hasn't been finished</span> / <span class="underline">wasn't finished</span> yet.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>hasn't been finished</strong> (Present Perfect - azione iniziata nel passato con risultato nel presente)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The robbers <span class="underline">were arrested</span> / <span class="underline">have been arrested</span> as soon as they left the bank.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>were arrested</strong> (Past Simple - azione specifica nel passato)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. Sue told us her baby <span class="underline">is born</span> / <span class="underline">had been born</span> two weeks earlier than expected.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>had been born</strong> (Past Perfect - azione avvenuta prima di un'altra nel passato)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. If there is too much snow, the match <span class="underline">has been cancelled</span> / <span class="underline">will be cancelled</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>will be cancelled</strong> (Future - condizione futura)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. By the time we got there, the rain <span class="underline">had stopped</span> / <span class="underline">had been stopped</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>had stopped</strong> (Past Perfect attivo - "stop" qui è intransitivo)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. When <span class="underline">were you told</span> / <span class="underline">have you been told</span> about the new rules?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>were you told</strong> (Past Simple - momento specifico nel passato)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. Most of the passengers <span class="underline">were swimming</span> / <span class="underline">were swum</span> to the shore.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>were swimming</strong> (Past Continuous attivo - "swim" è intransitivo)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. The winning horse <span class="underline">was ridden</span> / <span class="underline">was riding</span> by Pat Murphy.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>was ridden</strong> (Past Simple Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">9. I looked again for the old man, but he <span class="underline">was vanished</span> / <span class="underline">had vanished</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>had vanished</strong> (Past Perfect attivo - "vanish" è intransitivo)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">10. I don't think that you <span class="underline">will be asked</span> / <span class="underline">are being asked</span> to show your passport.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>will be asked</strong> (Future Passive)</div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 3: Complete each sentence with a passive form of the verb in brackets</h3>
+            
+            <div class="question">
+                <div class="question-text">1. I'm sorry, but this carpet (already sell) ................................. .</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>has already been sold</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The old house on the corner (knock down) ................................. last year.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>was knocked down</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. When exactly (John give) ................................. his prize?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>was John given</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. Most people agree that America (not discover) ................................. by Christopher Columbus, but by the Vikings.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>was not discovered</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. All complaints about products (deal with) ................................. by our customer services department.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>are dealt with</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. Police confirmed that the murder weapon (since discover) ................................. in a nearby lake.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>has since been discovered</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. It (announce) ................................. yesterday that the government has decided not to raise income tax.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>was announced</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. Good news! I (ask) ................................. to take over as the new manager.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>have been asked</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">9. I don't believe that this play (write) ................................. by Shakespeare.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>was written</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">10. Ann really likes (invite) ................................. to dinner parties.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>being invited</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 4: Rewrite each sentence so that it has a similar meaning. Begin with the underlined words. Include the agent.</h3>
+            
+            <div class="question">
+                <div class="question-text">1. A sudden storm flooded <span class="underline">the football pitch</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The football pitch was flooded by a sudden storm.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. Vandals scratched <span class="underline">the car door</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The car door was scratched by vandals.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. Scientists in Geneva have discovered <span class="underline">a new planet</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>A new planet has been discovered by scientists in Geneva.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. The president will open <span class="underline">the new National Museum</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The new National Museum will be opened by the president.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. A local firm is building <span class="underline">the new primary school</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The new primary school is being built by a local firm.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. Many of the guests did not use <span class="underline">the swimming pool</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The swimming pool was not used by many of the guests.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. A lifeguard rescued <span class="underline">the two children</span>.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The two children were rescued by a lifeguard.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. More than a million people read <span class="underline">this magazine</span> each week.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>This magazine is read by more than a million people each week.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 5: Some of these sentences can be rewritten in the passive, and some can't. Rewrite if possible, putting the verb in italics in the passive. Include the agent if important.</h3>
+            
+            <div class="question">
+                <div class="question-text">1. I really <span class="italic">like</span> this hotel.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Not possible</strong> (intransitive verb)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. Jane <span class="italic">won</span> the poetry competition.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The poetry competition was won by Jane.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. Peter's new car <span class="italic">cost</span> over €20000.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Not possible</strong> ("cost" is intransitive here)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. Martin always <span class="italic">wears</span> casual clothes.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Casual clothes are always worn by Martin.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. One of our visitors <span class="italic">lost</span> this cigarette lighter.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>This cigarette lighter was lost by one of our visitors.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. They <span class="italic">haven't decided</span> the exact time of the match yet.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The exact time of the match hasn't been decided yet.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. Most of the guests <span class="italic">had left</span> the hotel by midday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The hotel had been left by most of the guests by midday.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. Some parents <span class="italic">read</span> to their children every night.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Not possible</strong> ("read to" is intransitive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">9. This bike <span class="italic">belongs</span> to my sisters.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Not possible</strong> ("belong" is intransitive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">10. People <span class="italic">ate</span> most of the food at the party.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Most of the food was eaten at the party.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 6: Complete the second sentence using the word given. You must use between two and five words, including the word given.</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Last Thursday we appointed a new marketing manager.<br><strong>WAS</strong><br>A new ................................. last Thursday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>marketing manager was appointed</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. Smith Ltd are supplying our company with furniture.<br><strong>SUPPLIED</strong><br>Our company ................................. by Smith Ltd.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>is being supplied with furniture</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. William the Conqueror built the castle in the 11th century.<br><strong>BY</strong><br>The castle ................................. William the Conqueror in the 11th century.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>was built by</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. No decision has yet been made.<br><strong>DECIDED</strong><br>Nothing ................................. yet.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>has been decided</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. People believe that someone murdered Jenkins.<br><strong>WAS</strong><br>It ................................. murdered.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>is believed that Jenkins was</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. Your hair needs cutting.<br><strong>GET</strong><br>You ought ................................. cut.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>to get your hair</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. The police were following the suspects.<br><strong>WERE</strong><br>The suspects ................................. police.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>were being followed by the</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. No-one has seen Peter since the day of the party.<br><strong>BEEN</strong><br>Peter ................................. the day of the party.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>hasn't been seen since</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">9. We put up a notice about the trip on the notice board yesterday.<br><strong>WAS</strong><br>A notice ................................. up on the notice board yesterday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>about the trip was put</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">10. People think that an apple a day is good for you.<br><strong>TO</strong><br>An apple a day ................................. for you.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>is thought to be good</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 8: Rewrite each sentence using a passive form. Do not use the words in italics.</h3>
+            
+            <div class="question">
+                <div class="question-text">1. <span class="italic">Apparently</span>, Freddie has a wife in Scotland.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Freddie is said to have a wife in Scotland.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. <span class="italic">Nobody</span> knows <span class="italic">anything</span> about Emma's family.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Nothing is known about Emma's family.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. <span class="italic">People</span> think that <span class="italic">someone</span> started the fire deliberately.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The fire is thought to have been started deliberately.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. You should <span class="italic">ask</span> a doctor to see to that cut.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>That cut should be seen to by a doctor.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. <span class="italic">People</span> say that Chris was in the army.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Chris is said to have been in the army.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. My trousers <span class="italic">need</span> to be pressed before I leave.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>My trousers must be pressed before I leave.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. <span class="italic">No-one</span> has signed this letter.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>This letter hasn't been signed.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. Mary's hair still <span class="italic">needs</span> cutting.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Mary's hair still has to be cut.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 9: Complete with auxiliary verbs from the box</h3>
+            <p><strong>Box:</strong> have been • are • were • are going to be • had • is being • hasn't been • will be</p>
+            
+            <div class="question">
+                <div class="question-text">0. Emails <strong>are</strong> sent by millions of people every day. ✓</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">✓ <strong>Correct</strong> - Present Simple Passive</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">1. The post office ........................ modernised at the moment.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>is being</strong> (Present Continuous Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. Letters ........................ sent by people for hundreds of years. It's a very old service.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>have been</strong> (Present Perfect Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. Two million letters ........................ posted yesterday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>were</strong> (Past Simple Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. I ........................ posted the letter already when I realized the address was wrong.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>had</strong> (Past Perfect Active - "I had posted")</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. I'm sure this card ........................ delivered before next Sunday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>will be</strong> (Future Simple Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. Christmas cards ........................ received late by a lot of people next week.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>are going to be</strong> (Future with "going to" Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. This letter ........................ posted yet.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>hasn't been</strong> (Present Perfect Passive negative)</div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 10: Complete with the correct passive form of the verbs in brackets</h3>
+            
+            <div class="question">
+                <div class="question-text">0. This website <strong>is visited</strong> (visit) by more than 1 million people every day. ✓</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">✓ <strong>Correct</strong> - Present Simple Passive</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">1. This Matisse painting ........................ (steal) from the museum last year.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>was stolen</strong> (Past Simple Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The team ........................ (not beat) in the final.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>wasn't beaten</strong> (Past Simple Passive negative)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. The students ........................ (just tell) to work quietly.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>have just been told</strong> (Present Perfect Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. Your sandwiches ........................ (prepare) right now.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>are being prepared</strong> (Present Continuous Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. This concert ........................ (watch) by millions of people on TV tomorrow.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>will be watched</strong> (Future Simple Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. The climate targets ........................ (not meet) by our country this year.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>won't be met</strong> (Future Simple Passive negative)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. We've already decided, the bill ........................ (pay) by everyone.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>will be paid</strong> (Future Simple Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. ........................ the money in his pocket ........................ (lend) to him by your brother?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Was</strong> ... <strong>lent</strong> (Past Simple Passive question)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">9. Who ........................ the lecture this afternoon ........................ (give) by?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>is</strong> ... <strong>being given</strong> (Present Continuous Passive question)</div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 11: Complete with the correct active or passive form of the verbs in brackets</h3>
+            
+            <div class="question">
+                <div class="question-text">0. Coffee <strong>is grown</strong> (grow) in many countries in Africa these days. ✓</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">✓ <strong>Correct</strong> - Present Simple Passive</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">1. Mr Smith ........................ (leave) by his wife last month.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>was left</strong> (Past Simple Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. I ........................ (want) you to finish your homework by five o'clock.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>want</strong> (Present Simple Active)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. The boys ........................ (speak) to by the head teacher already.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>have been spoken to</strong> (Present Perfect Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. Mr Brown ........................ (buy) the new car you can see outside.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>bought</strong> (Past Simple Active)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. Tomorrow the painting ........................ (sell) to the person who offers the most money.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>will be sold</strong> (Future Simple Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. Many pilots ........................ (fly) planes for our company in the past.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>flew</strong> (Past Simple Active)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. This tomb ........................ (think) to be oldest in Europe.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>is thought</strong> (Present Simple Passive - impersonal construction)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. Ancient scholars ........................ (write) the texts we are studying.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>wrote</strong> (Past Simple Active)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">9. The girls ........................ (spend) all day today preparing their presentation.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>have spent</strong> (Present Perfect Active)</div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise 12: Rewrite using active or passive form</h3>
+            
+            <div class="question">
+                <div class="question-text">0. John was sent to bed by his mum.<br><strong>Example:</strong> <em>John's mum sent him to bed.</em> ✓</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">✓ <strong>Correct</strong> - Passive to Active transformation</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">1. The film has been seen by many people.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Many people have seen the film.</strong> (Passive to Active)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The children dug a hole for the new pond.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>A hole was dug by the children for the new pond.</strong> (Active to Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. A person from the AAI will give the talk.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The talk will be given by a person from the AAI.</strong> (Active to Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. The gold wasn't sold by the thieves who stole it.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The thieves who stole the gold didn't sell it.</strong> (Passive to Active)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. Most people don't understand politics in this country.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Politics in this country isn't understood by most people.</strong> (Active to Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. His dad allowed him go to the shop alone.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>He was allowed to go to the shop alone by his dad.</strong> (Active to Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. The truth is known only by a few people.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Only a few people know the truth.</strong> (Passive to Active)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. The waitress spilt the wine.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The wine was spilt by the waitress.</strong> (Active to Passive)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">9. Who was the play written by?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Who wrote the play?</strong> (Passive to Active question)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: HAVE SOMETHING DONE -->
+    <div id="have-something-done" class="tab-content">
+        <div class="exercise">
+            <h3>Exercise 7: Rewrite each sentence so that it contains a form of "have something done". Do not include the agent.</h3>
+            
+            <div class="question">
+                <div class="question-text">1. A painter painted our house last month.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>We had our house painted last month.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The hairdresser is cutting my hair this afternoon.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>I'm having my hair cut this afternoon.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. Someone has stolen my motorbike.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>I've had my motorbike stolen.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. The dentist has taken out all of Ricky's teeth.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Ricky has had all his teeth taken out.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. I haven't been to the car wash for a long time.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>I haven't had my car washed for a long time.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. The men are coming to put in the new central heating on Saturday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>We're having the new central heating put in on Saturday.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. Someone broke Harry's nose in a fight.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Harry had his nose broken in a fight.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. Isn't it time someone fixed your television?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Isn't it time you had your television fixed?</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise: Rewrite using "have something done"</h3>
+            
+            <div class="question">
+                <div class="question-text">1. The milkman delivers Lucy's milk to her house every morning. → Lucy ................................. to her house every morning.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>has her milk delivered</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The hairdresser cut Susan's hair yesterday. → Susan ................................. yesterday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>had her hair cut</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. The doctor is checking Donald's blood pressure at the moment. → Donald ................................. at the moment.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>is having his blood pressure checked</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. A babysitter will look after Mrs Jones's children. → Mrs Jones ................................. .</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>will have her children looked after</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise: Complete mini-dialogues with appropriate questions</h3>
+            
+            <div class="question">
+                <div class="question-text">1. A: Why ................................. ?<br>B: I'm going to have my hair permed because I like curly hair.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>are you going to have your hair permed</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. A: When ................................. ?<br>B: I had my coat dry-cleaned two days ago.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>did you have your coat dry-cleaned</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. A: Where ................................. ?<br>B: My sister had this dress made at "T-Fashion".</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>did your sister have this dress made</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. A: How often ................................. ?<br>B: I have my hair dyed once a month.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>do you have your hair dyed</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise: Unpleasant experiences - Complete using "have something done"</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Mrs Jones (her suitcase / steal) ................................. at the airport.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>had her suitcase stolen</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. My brother (his nose / break) ................................. in a fight.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>had his nose broken</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. The old lady (her house / damage) ................................. by a heavy storm.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>had her house damaged</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. John (his leg / injure) ................................. in a car accident.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>had his leg injured</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise: Questions about Sarah and Amanda</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Amanda / the beds / make / ? → Does Amanda have the beds made? - No, she doesn't.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Does Amanda have the beds made?</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. Sarah / the house / clean / ?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Does Sarah have the house cleaned?</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. Amanda / the gardening / do / ?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Does Amanda have the gardening done?</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. Sarah / the children / look after / ?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Does Sarah have the children looked after?</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: DOPPIO PASSIVO -->
+    <div id="doppio-passivo" class="tab-content">
+        <div class="exercise">
+            <h3>Double Object Passive - Doppio Passivo</h3>
+            <p><strong>Regola:</strong> Con verbi che hanno due oggetti (give, send, tell, show, teach, etc.), possiamo formare due frasi passive diverse.</p>
+            
+            <div class="question">
+                <div class="question-text"><strong>Example:</strong> They gave John a prize.<br>→ <strong>John was given a prize.</strong> (soggetto = persona)<br>→ <strong>A prize was given to John.</strong> (soggetto = cosa)</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer">La prima forma (persona come soggetto) è più comune in inglese.</div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise: Transform into both passive forms</h3>
+            
+            <div class="question">
+                <div class="question-text">1. They sent Mary a letter.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Mary was sent a letter.</strong><br><strong>A letter was sent to Mary.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The teacher showed the students the results.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The students were shown the results.</strong><br><strong>The results were shown to the students.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. She will tell him the truth.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>He will be told the truth.</strong><br><strong>The truth will be told to him.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. They have offered Sarah the job.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Sarah has been offered the job.</strong><br><strong>The job has been offered to Sarah.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. The company pays the employees good salaries.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The employees are paid good salaries.</strong><br><strong>Good salaries are paid to the employees.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. They promised the children a trip to the zoo.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The children were promised a trip to the zoo.</strong><br><strong>A trip to the zoo was promised to the children.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">7. He bought his wife expensive jewelry.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>His wife was bought expensive jewelry.</strong><br><strong>Expensive jewelry was bought for his wife.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">8. They will lend us the money.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>We will be lent the money.</strong><br><strong>The money will be lent to us.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise: Choose the best passive form</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Someone stole John's wallet. → <span class="underline">John was stolen his wallet</span> / <span class="underline">John's wallet was stolen</span></div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>John's wallet was stolen</strong> ("steal" non può avere doppio oggetto)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. They awarded him first prize. → <span class="underline">He was awarded first prize</span> / <span class="underline">First prize was awarded him</span></div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>He was awarded first prize</strong> (più naturale)</div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. She asked me a difficult question. → <span class="underline">I was asked a difficult question</span> / <span class="underline">A difficult question was asked me</span></div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>I was asked a difficult question</strong> (più naturale)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: PASSIVI IMPERSONALI -->
+    <div id="passivi-impersonali" class="tab-content">
+        <div class="exercise">
+            <h3>Exercise: Transform into both passive constructions (present/future reference)</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Everybody expects that Michael Swan will break the world record at the Olympic Games.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is expected that Michael Swan will break the world record at the Olympic Games.</strong><br><strong>Michael Swan is expected to break the world record at the Olympic Games.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. Everybody thinks she is a wonderful actress.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is thought that she is a wonderful actress.</strong><br><strong>She is thought to be a wonderful actress.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. They expect that the cost of living will continue to rise.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is expected that the cost of living will continue to rise.</strong><br><strong>The cost of living is expected to continue to rise.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. Everybody knows that too much sugar is bad for our health.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is known that too much sugar is bad for our health.</strong><br><strong>Too much sugar is known to be bad for our health.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. They believe that smoking causes cancer.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is believed that smoking causes cancer.</strong><br><strong>Smoking is believed to cause cancer.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise: Transform into both passive constructions (past reference)</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Newspapers report that the accident occurred in the late afternoon.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is reported that the accident occurred in the late afternoon.</strong><br><strong>The accident is reported to have occurred in the late afternoon.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. They say that John Thorpe won a lot of money gambling.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is said that John Thorpe won a lot of money gambling.</strong><br><strong>John Thorpe is said to have won a lot of money gambling.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. They say that Mr Swanson was a brilliant actor.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is said that Mr Swanson was a brilliant actor.</strong><br><strong>Mr Swanson is said to have been a brilliant actor.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. Newspapers report that the police arrested four famous gangsters yesterday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is reported that the police arrested four famous gangsters yesterday.</strong><br><strong>Four famous gangsters are reported to have been arrested yesterday.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. Journalists report that the detective found the missing child.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is reported that the detective found the missing child.</strong><br><strong>The missing child is reported to have been found.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. Everybody knows that Patrick gave a lot of money to charity.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is known that Patrick gave a lot of money to charity.</strong><br><strong>Patrick is known to have given a lot of money to charity.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>Exercise: Progressive forms with impersonal passive</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Everybody knows that Tom is constantly sending Pamela messages.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is known that Tom is constantly sending Pamela messages.</strong><br><strong>Tom is known to be constantly sending Pamela messages.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. They say that the committee is discussing the project.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is said that the committee is discussing the project.</strong><br><strong>The committee is said to be discussing the project.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. Newspapers report that poverty is increasing in some European countries.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is reported that poverty is increasing in some European countries.</strong><br><strong>Poverty is reported to be increasing in some European countries.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. They say that the climate is changing quickly.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is said that the climate is changing quickly.</strong><br><strong>The climate is said to be changing quickly.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. They say that the robbers were wearing masks.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is said that the robbers were wearing masks.</strong><br><strong>The robbers are said to have been wearing masks.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">6. They think that she was living in New York at that time.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>It is thought that she was living in New York at that time.</strong><br><strong>She is thought to have been living in New York at that time.</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: PASSIVE TO ACTIVE -->
+    <div id="passive-to-active" class="tab-content">
+        <div class="exercise">
+            <h3>A. Present Simple - Transform from Passive to Active</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Milk is delivered to our school every morning.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Someone delivers milk to our school every morning.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. French is spoken in many countries.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Many countries speak French.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. The greenhouse is cleaned by the students twice a week.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The students clean the greenhouse twice a week.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. The rules are explained by the teacher at the beginning of the year.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The teacher explains the rules at the beginning of the year.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. The tests are corrected by the teachers.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The teachers correct the tests.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>B. Past Simple - Transform from Passive to Active</h3>
+            
+            <div class="question">
+                <div class="question-text">1. The farm was visited by the class last month.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The class visited the farm last month.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The letters were sent by the secretary yesterday.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The secretary sent the letters yesterday.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. The cows were fed by the workers at 6 a.m.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The workers fed the cows at 6 a.m.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. The match was won by our team.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Our team won the match.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. The garden was watered by Marco.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Marco watered the garden.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>C. Present Perfect - Transform from Passive to Active</h3>
+            
+            <div class="question">
+                <div class="question-text">1. The new project has been started by the committee.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The committee has started the new project.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The problem has been solved by the experts.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The experts have solved the problem.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. The laboratory has been prepared by the students.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The students have prepared the laboratory.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. The greenhouse has been damaged by the storm.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The storm has damaged the greenhouse.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. The apples have been collected by the farmers.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The farmers have collected the apples.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>D. Future Simple - Transform from Passive to Active</h3>
+            
+            <div class="question">
+                <div class="question-text">1. The meeting will be held by the headteacher.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The headteacher will hold the meeting.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The results will be published tomorrow by the professor.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The professor will publish the results tomorrow.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. A new barn will be built by the school.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The school will build a new barn.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. The lesson will be recorded by the students.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The students will record the lesson.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. The work will be done by the volunteers.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The volunteers will do the work.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>E. Continuous Forms - Transform from Passive to Active</h3>
+            
+            <div class="question">
+                <div class="question-text">1. The room is being cleaned by the janitor.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The janitor is cleaning the room.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The plants are being watered by the gardeners.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The gardeners are watering the plants.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. The car was being repaired by the mechanic when we arrived.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The mechanic was repairing the car when we arrived.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. A new road is being built by the workers.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The workers are building a new road.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. The food was being prepared by the chef.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The chef was preparing the food.</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>F. Questions - Transform from Passive to Active</h3>
+            
+            <div class="question">
+                <div class="question-text">1. Was the homework done by the students?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Did the students do the homework?</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. Were the animals taken to the stable by the workers?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Did the workers take the animals to the stable?</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. Has the article been written by Elena?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Has Elena written the article?</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. Will the presentation be prepared by the group?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Will the group prepare the presentation?</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. Is the grass being cut by the gardeners?</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Are the gardeners cutting the grass?</strong></div>
+            </div>
+        </div>
+
+        <div class="exercise">
+            <h3>G. Negative Sentences - Transform from Passive to Active</h3>
+            
+            <div class="question">
+                <div class="question-text">1. The exam wasn't passed by all the students.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Not all the students passed the exam.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">2. The project isn't finished by the class yet.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The class hasn't finished the project yet.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">3. The book hasn't been read by Marco.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>Marco hasn't read the book.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">4. The new building won't be completed this year by the company.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The company won't complete the new building this year.</strong></div>
+            </div>
+
+            <div class="question">
+                <div class="question-text">5. The cows aren't being milked by the workers right now.</div>
+                <button class="show-answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+                <div class="answer"><strong>The workers aren't milking the cows right now.</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Pagina creata dal Dipartimento di Inglese dell'IIS MENDEL - Villa Cortese (MI)
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabs;
+            
+            // Hide all tab contents
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tabs
+            tabs = document.getElementsByClassName("tab");
+            for (i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Show the selected tab content and mark the button as active
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function toggleAnswer(button) {
+            const answer = button.nextElementSibling;
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                button.textContent = 'Show Answer';
+            } else {
+                answer.classList.add('show');
+                button.textContent = 'Hide Answer';
+            }
+        }
+
+        // Add some interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.show-answer-btn');
+            let answersShown = 0;
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent === 'Show Answer') {
+                        answersShown++;
+                    } else {
+                        answersShown--;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
